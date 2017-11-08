@@ -8,20 +8,31 @@ namespace GCLab12
 {
     abstract class Player
     {
-        public string name { get; set; }
-        public Roshambo roshambo { get; set; }
+        private string name;
+        private Roshambo choice;
 
-        abstract public Roshambo GenerateRoshambo();
-
-        public Player(string name,Roshambo roshambo)
+        public Player(string name)
         {
             this.name = name;
-            this.roshambo = roshambo;
         }
+
+        public string Name
+        {
+            get { return name; }
+            set { name = value; }
+        }
+
+        public Roshambo Choice
+        {
+            get { return choice; }
+            set { choice = value; }
+        }
+
+        public abstract Roshambo GenerateRoshambo();
 
         public override string ToString()
         {
-            return $"{name} {GenerateRoshambo()}";
+            return $"{Name}: {Choice}!";
         }
     }
 }

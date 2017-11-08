@@ -6,8 +6,17 @@ using System.Threading.Tasks;
 
 namespace GCLab12
 {
-    class TheGladiators
+    class TheGladiators : Player
     {
-        
+        public TheGladiators(string name)
+            : base(name) 
+        {
+        }
+
+        public override Roshambo GenerateRoshambo()
+        {
+            this.Choice = Roshambo.Rock;
+            return Choice;
+        }
     }
 }

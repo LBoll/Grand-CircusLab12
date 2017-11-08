@@ -6,9 +6,20 @@ using System.Threading.Tasks;
 
 namespace GCLab12
 {
-    class TheRogue
+    class TheRogues : Player
     {
+        Random random;
+        public TheRogues(string name)
+            :base(name)
+        {
+            random = new Random();
+        }
 
-
+        public override Roshambo GenerateRoshambo()
+        {
+            Roshambo choice = (Roshambo)random.Next(2);
+            Choice = choice;
+            return choice;
+        }
     }
 }

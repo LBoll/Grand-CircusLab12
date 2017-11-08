@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,39 +11,53 @@ namespace GCLab12
         static void Main(string[] args)
         {
             Console.WriteLine("Welcome to Rock, Paper, Scissors! ");
-            Console.Write("Please enter your name: ");
-            string userName = Console.ReadLine();
-            Console.Write($"Hello, {userName}! Would you like to play against TheGladiator or TheRogue? (g/r): ");
-            string opponent = Console.ReadLine().ToLower().Trim();
-            bool statement = true;
+            Console.Write("Enter your name: ");
+            Player userName = new HumanPlayer(Console.ReadLine());
 
-            while (statement)
+            Player r = new TheRogues("TheRogues");
+            Player g = new TheGladiators("TheGladiators");
+
+            bool repeat = true;
+            while (repeat)
             {
-                if (opponent == "g")
+                Console.Write($"{userName.Name}, would you like to play against TheRogues or TheGladiators? ");
+
+                Player opponent = UserOpponent(r, g);
+
+                userName.GenerateRoshambo();
+                opponent.GenerateRoshambo();
+
+                Console.WriteLine(userName);
+                Console.WriteLine(opponent);
+                repeat = Validator.Continue("Would you like to play again? (Y/N?): ");
+                Console.WriteLine();
+            }
+        }
+
+        private static Player UserOpponent(Player r, Player g)
+        {
+            bool validOpponent = false;
+            Player opponent = null;
+
+            while (!validOpponent)
+            {
+                string opponentChoice = Console.ReadLine().ToLower();
+                if (opponentChoice == r.Name.ToLower())
                 {
-                    Console.WriteLine("You have selected TheGladiators! ");
-                    break;
+                    opponent = r;
+                    validOpponent = true;
                 }
-                else if (opponent == "r")
+                else if (opponentChoice == g.Name.ToLower())
                 {
-                    Console.WriteLine("You have selected TheRogues! ");
-                    break;
+                    opponent = g;
+                    validOpponent = true;
                 }
                 else
                 {
-                    Console.WriteLine("Please pick from one of the opponents listed above! ");
-                    statement = false;
+                    Console.Write("Please pick from one of the choices listed above! ");
                 }
             }
-
-
-            Console.Write("Rock, paper, or scissors? (R/P/S): ");
-            string choice = Console.ReadLine();
-
-            Console.WriteLine($"{userName}:{choice}");
-            Console.WriteLine($"{opponent}:{choice}");
-
-
+            return opponent;
         }
     }
 }
